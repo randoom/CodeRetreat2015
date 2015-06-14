@@ -1,0 +1,3 @@
+﻿insert GA 2
+reverse
+GATC
