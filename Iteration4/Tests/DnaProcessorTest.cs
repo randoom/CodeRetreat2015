@@ -1,34 +1,59 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Reflection;
+using Autofac;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iteration4.Tests
 {
     [TestClass]
     public class DnaProcessorTest
     {
-        private ISequenceFilter sequenceFilter;
+        private IContainer container;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            this.sequenceFilter = new SequenceFilter();
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).
+                AsImplementedInterfaces();
+            builder.RegisterType<DnaFileProcessor>();
+
+            this.container = builder.Build();
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            this.container.Dispose();
         }
 
         [TestMethod]
         public void ShouldFilterSequences()
         {
-            var processor = new DnaFileProcessor(new[] { new ReverseCommandParser(this.sequenceFilter) }, this.sequenceFilter);
-            string[] result = processor.Process(new[] { "! é RT ACT k !G" });
+            var processor = this.container.Resolve<DnaFileProcessor>();
 
-            CollectionAssert.AreEqual(new[] { "TACTG" }, result);
+            var result = processor.Process(new[] {"! é RT ACT k !G"});
+
+            CollectionAssert.AreEqual(new[] {"TACTG"}, result);
         }
 
         [TestMethod]
-        public void ParserShouldCreateAReverseProcessor()
+        public void ReverseSouldReverse()
         {
-            var processor = new DnaFileProcessor(new[] {new ReverseCommandParser(this.sequenceFilter)}, this.sequenceFilter);
-            string[] result = processor.Process(new[] {"reverse", "ACTG"});
+            var processor = this.container.Resolve<DnaFileProcessor>();
 
-            CollectionAssert.AreEqual(new[] { "GTCA" }, result);
+            var result = processor.Process(new[] {"reverse", "ACTG"});
+
+            CollectionAssert.AreEqual(new[] {"GTCA"}, result);
+        }
+
+        [TestMethod]
+        public void DoubleReverseSouldNotReverse()
+        {
+            var processor = this.container.Resolve<DnaFileProcessor>();
+
+            var result = processor.Process(new[] {"reverse", "reverse", "ACTG"});
+
+            CollectionAssert.AreEqual(new[] { "ACTG" }, result);
         }
     }
 }

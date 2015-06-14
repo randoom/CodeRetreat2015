@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iteration3
@@ -28,6 +29,8 @@ namespace Iteration3
         public string Process(string[] lines)
         {
             ParseCommands(lines);
+
+            throw new NotImplementedException();
         }
 
         private void ParseCommands(string[] lines)

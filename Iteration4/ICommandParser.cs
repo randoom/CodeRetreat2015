@@ -2,6 +2,6 @@
 {
     public interface ICommandParser
     {
-        ICommandProcessor Create(string command);
+        ICommandProcessor TryCreate(string command);
     }
 }

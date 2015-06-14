@@ -2,21 +2,21 @@
 
 namespace Iteration4
 {
-    class SequenceFilter : ISequenceFilter
+    internal class SequenceCleaner : ISequenceCleaner
     {
-        public string Apply(string line)
+        public string Clean(string line)
         {
             var outputChars = new List<char>();
             for (var i = 0; i < line.Length; i++)
             {
-                char c = line[i];
-                if (IsADNChar(c))
+                var c = line[i];
+                if (this.IsADNChar(c))
                 {
                     outputChars.Add(c);
                 }
             }
 
-            string result = string.Join("", outputChars);
+            var result = string.Join("", outputChars);
             return result;
         }
 

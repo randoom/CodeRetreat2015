@@ -3,21 +3,21 @@
 namespace Iteration4.Tests
 {
     [TestClass]
-    public class ParserTest
+    public class ReverseTests
     {
-        private ISequenceFilter sequenceFilter;
+        private ISequenceCleaner sequenceCleaner;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            this.sequenceFilter = new SequenceFilter();
+            this.sequenceCleaner = new SequenceCleaner();
         }
 
         [TestMethod]
         public void ParserShouldCreateAReverseProcessor()
         {
-            var parser = new ReverseCommandParser(this.sequenceFilter);
-            ICommandProcessor commandProcessor = parser.Create("reverse");
+            var parser = new ReverseCommandParser(this.sequenceCleaner);
+            ICommandProcessor commandProcessor = parser.TryCreate("reverse");
 
             Assert.IsTrue(commandProcessor is ReverseProcessor);
         }
@@ -30,10 +30,10 @@ namespace Iteration4.Tests
         }
 
         [TestMethod]
-        public void ParserShouldCreateNullProcessForUnknownCommand()
+        public void ParserShouldCreateNullProcessorForUnknownCommand()
         {
-            var parser = new ReverseCommandParser(this.sequenceFilter);
-            ICommandProcessor commandProcessor = parser.Create("dummy");
+            var parser = new ReverseCommandParser(this.sequenceCleaner);
+            ICommandProcessor commandProcessor = parser.TryCreate("dummy");
 
             Assert.IsTrue(commandProcessor is NullProcessor);
         }

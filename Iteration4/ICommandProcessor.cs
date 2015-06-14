@@ -2,7 +2,6 @@
 {
     public interface ICommandProcessor
     {
-
         string Process(string input);
     }
 }

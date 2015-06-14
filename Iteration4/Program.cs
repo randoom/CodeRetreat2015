@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Autofac;
 
 namespace Iteration4
 {
@@ -7,14 +8,19 @@ namespace Iteration4
     {
         private static void Main(string[] args)
         {
-            var inputPath = "input.txt";
-            var outputPath = "output.txt";
-            
+            const string inputPath = "input.txt";
+            const string outputPath = "output.txt";
+
             try
             {
-                string[] allLines = File.ReadAllLines(inputPath);
+                var allLines = File.ReadAllLines(inputPath);
 
-                
+                var container = Bootstraper.Initialise();
+                var processor = container.Resolve<DnaFileProcessor>();
+
+                allLines = processor.Process(allLines);
+
+                File.WriteAllLines(outputPath, allLines);
             }
             catch (Exception ex)
             {

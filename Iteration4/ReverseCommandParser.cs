@@ -2,14 +2,14 @@ namespace Iteration4
 {
     internal class ReverseCommandParser : ICommandParser
     {
-        private readonly ISequenceFilter filter;
+        private readonly ISequenceCleaner cleaner;
 
-        public ReverseCommandParser(ISequenceFilter filter)
+        public ReverseCommandParser(ISequenceCleaner cleaner)
         {
-            this.filter = filter;
+            this.cleaner = cleaner;
         }
 
-        public ICommandProcessor Create(string command)
+        public ICommandProcessor TryCreate(string command)
         {
             if (command == "reverse")
             {
