@@ -37,7 +37,7 @@ namespace Iteration4.Tests
         }
 
         [TestMethod]
-        public void ReverseSouldReverse()
+        public void SouldReverse()
         {
             var processor = this.container.Resolve<DnaFileProcessor>();
 
@@ -47,13 +47,23 @@ namespace Iteration4.Tests
         }
 
         [TestMethod]
-        public void DoubleReverseSouldNotReverse()
+        public void SouldNotReverseWhenDoubleReverse()
         {
             var processor = this.container.Resolve<DnaFileProcessor>();
 
             var result = processor.Process(new[] {"reverse", "reverse", "ACTG"});
 
             CollectionAssert.AreEqual(new[] { "ACTG" }, result);
+        }
+
+        [TestMethod]
+        public void SouldInsertThenReverse()
+        {
+            var processor = this.container.Resolve<DnaFileProcessor>();
+
+            var result = processor.Process(new[] { "insert GG 2", "reverse", "ACTG" });
+
+            CollectionAssert.AreEqual(new[] { "GTCGGA" }, result);
         }
     }
 }

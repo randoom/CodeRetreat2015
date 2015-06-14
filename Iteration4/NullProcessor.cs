@@ -1,4 +1,6 @@
-﻿namespace Iteration4
+﻿using Iteration4.Commands;
+
+namespace Iteration4
 {
     internal class NullProcessor : ICommandProcessor
     {

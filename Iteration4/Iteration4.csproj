@@ -47,17 +47,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstraper.cs" />
+    <Compile Include="Commands\InsertCommandParser.cs" />
+    <Compile Include="Commands\InsertCommandProcessor.cs" />
     <Compile Include="DnaFileProcessor.cs" />
     <Compile Include="Tests\DnaProcessorTest.cs" />
     <Compile Include="ISequenceCleaner.cs" />
-    <Compile Include="ICommandParser.cs" />
-    <Compile Include="ICommandProcessor.cs" />
+    <Compile Include="Commands\ICommandParser.cs" />
+    <Compile Include="Commands\ICommandProcessor.cs" />
     <Compile Include="NullProcessor.cs" />
     <Compile Include="Tests\ReverseTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReverseCommandParser.cs" />
-    <Compile Include="ReverseProcessor.cs" />
+    <Compile Include="Commands\ReverseCommandParser.cs" />
+    <Compile Include="Commands\ReverseCommandProcessor.cs" />
     <Compile Include="SequenceCleaner.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +75,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

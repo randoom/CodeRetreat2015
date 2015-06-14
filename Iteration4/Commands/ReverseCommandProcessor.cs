@@ -1,6 +1,6 @@
-namespace Iteration4
+namespace Iteration4.Commands
 {
-    class ReverseProcessor : ICommandProcessor
+    class ReverseCommandProcessor : ICommandProcessor
     {
         public string Process(string input)
         {

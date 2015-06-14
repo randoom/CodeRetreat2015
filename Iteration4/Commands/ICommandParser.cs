@@ -1,4 +1,4 @@
-﻿namespace Iteration4
+﻿namespace Iteration4.Commands
 {
     public interface ICommandParser
     {
