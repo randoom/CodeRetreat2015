@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Autofac;
+﻿using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iteration4.Tests
@@ -12,12 +11,7 @@ namespace Iteration4.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).
-                AsImplementedInterfaces();
-            builder.RegisterType<DnaFileProcessor>();
-
-            this.container = builder.Build();
+            this.container = Bootstraper.Initialise();
         }
 
         [TestCleanup]
@@ -53,7 +47,7 @@ namespace Iteration4.Tests
 
             var result = processor.Process(new[] {"reverse", "reverse", "ACTG"});
 
-            CollectionAssert.AreEqual(new[] { "ACTG" }, result);
+            CollectionAssert.AreEqual(new[] {"ACTG"}, result);
         }
 
         [TestMethod]
@@ -61,9 +55,9 @@ namespace Iteration4.Tests
         {
             var processor = this.container.Resolve<DnaFileProcessor>();
 
-            var result = processor.Process(new[] { "insert GG 2", "reverse", "ACTG" });
+            var result = processor.Process(new[] {"insert GG 2", "reverse", "ACTG"});
 
-            CollectionAssert.AreEqual(new[] { "GTCGGA" }, result);
+            CollectionAssert.AreEqual(new[] {"GTCGGA"}, result);
         }
     }
 }
